@@ -18,13 +18,14 @@
 // export default connectDB;
 import mongoose from "mongoose";
 
-const connectDB = async () => {
+const connectDB = async (startServer) => {
   try {
-    const connectionInstance = await mongoose.connect(process.env.MONGODB_URL);
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log("MongoDB Connected");
 
-    console.log(`✅ MongoDB connected → HOST: ${connectionInstance.connection.host}`);
+    if (startServer) startServer();  // Only start server if DB connected
   } catch (error) {
-    console.error("❌ MongoDB connection FAILED:", error.message);
+    console.error("MongoDB Connection Error:", error);
     process.exit(1);
   }
 };

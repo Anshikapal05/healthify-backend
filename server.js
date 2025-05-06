@@ -48,7 +48,6 @@ connectCloudinary()
 //middlewares
 
 app.use(express.json())     //we make any req. it passes through this funcn
-app.use(cors())
 
 const allowedOrigins = [
     'https://healthify-frontend-hazel.vercel.app',

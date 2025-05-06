@@ -51,8 +51,8 @@ app.use(express.json())     //we make any req. it passes through this funcn
 app.use(cors())
 
 const allowedOrigins = [
-    'https://frontend-one.vercel.app',
-    'https://frontend-two.vercel.app',
+    'https://healthify-frontend-hazel.vercel.app',
+    'http://localhost:5174',
     'http://localhost:3000'
   ];
   

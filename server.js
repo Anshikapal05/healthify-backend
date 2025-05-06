@@ -44,10 +44,10 @@ import mongoose from "mongoose";
 const app= express()
 const port= process.env.PORT || 4000;
 console.log("MongoDb URl",process.env.MONGODB_URL)
-mongoose.connect(process.env.MONGODB_URL)
-    .then(() => console.log('MongoDB connected'))
-    .catch((err) => console.log('MongoDB connection error:', err));
-connectCloudinary()
+// mongoose.connect(process.env.MONGODB_URL)
+//     .then(() => console.log('MongoDB connected'))
+//     .catch((err) => console.log('MongoDB connection error:', err));
+// connectCloudinary()
 
 //middlewares
 
@@ -95,5 +95,21 @@ app.get('/',(req,res)=>{
 
 
 
-app.listen(port, ()=> console.log("Server Started", port))
+const startServer = async () => {
+  try {
+    console.log("MongoDB URL:", process.env.MONGODB_URL);
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log("MongoDB connected");
+
+    connectCloudinary(); // Optional: await if it's async
+
+    app.listen(port, () => {
+      console.log(`Server started on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Error starting server:", error.message);
+  }
+};
+
+startServer();
 

@@ -37,12 +37,16 @@ import connectDB from "./config/mongodb.js"
 import connectCloudinary from "./config/cloudinary.js"
 import adminRouter from "./routes/adminRoute.js"
 import doctorRouter from "./routes/doctorRoute.js";
-import usersRouter from "./routes/usersRoute.js"
+import usersRouter from "./routes/usersRoute.js";
+import mongoose from "mongoose";
 //app config
 
 const app= express()
-const port= process.env.PORT || 4000
-await connectDB()
+const port= process.env.PORT || 4000;
+console.log("MongoDb URl",process.env.MONGODB_URL)
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => console.log('MongoDB connected'))
+    .catch((err) => console.log('MongoDB connection error:', err));
 connectCloudinary()
 
 //middlewares

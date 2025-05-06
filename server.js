@@ -50,6 +50,25 @@ connectCloudinary()
 app.use(express.json())     //we make any req. it passes through this funcn
 app.use(cors())
 
+const allowedOrigins = [
+    'https://frontend-one.vercel.app',
+    'https://frontend-two.vercel.app',
+    'http://localhost:3000'
+  ];
+  
+  const corsOptions = {
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps, curl, postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  };
+  
+  app.use(cors(corsOptions));
 //api endpoints
 
 app.use('/api/admin',adminRouter)

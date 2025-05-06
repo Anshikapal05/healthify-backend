@@ -42,7 +42,7 @@ import usersRouter from "./routes/usersRoute.js"
 
 const app= express()
 const port= process.env.PORT || 4000
-await connectDB()
+//await connectDB()
 connectCloudinary()
 
 //middlewares
@@ -91,5 +91,11 @@ app.get('/',(req,res)=>{
 
 
 
-app.listen(port, ()=> console.log("Server Started", port))
+const startServer = () => {
+  connectCloudinary();
+  app.listen(port, () => console.log(`Server started on port ${port}`));
+};
+
+// Connect DB and pass callback
+connectDB(startServer);
 
